@@ -88,15 +88,28 @@ instance.prototype.actions = function(system) {
 		'record': { label: 'Record' },
 		'mark': { label: 'Mark track (while recording)' },
 		'stop': { label: 'Stop' },
-		'pause': { label:'Pause' },
-		'prev': { label:'Previous track' },
-		'next': { label:'Next track' }
+		'pause': { label: 'Pause' },
+		'prev': { label: 'Previous track' },
+		'next': { label: 'Next track' },
+		'jump': {
+			label: 'Jump to track',
+			options: [
+				{
+					label: 'Track number',
+					id: 'track',
+					type: 'textinput',
+					regex: self.REGEX_NUMBER,
+					default: 1
+				}
+			]
+		}
 	});
 }
 
 instance.prototype.action = function(action) {
 	var self = this;
 	var cmd = '0';
+	var opt = action.options;
 
 	switch (action.action) {
 
@@ -132,6 +145,13 @@ instance.prototype.action = function(action) {
 			cmd += '1A00';
 			break;
 
+		case 'jump':
+			cmd += '23';
+
+			var track = ('0000' + opt.track).substr(-4);
+			cmd += track.substr(2);
+			cmd += track.substr(0, 2);
+			break;
 	}
 
 	if (cmd !== undefined) {
