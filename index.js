@@ -47,6 +47,10 @@ instance.prototype.init_tcp = function() {
 			self.status(status, message);
 		});
 
+		self.socket.on('connect', function () {
+			self.socket.send("\r\n" + self.config.password + "\r\n");
+		});
+
 		self.socket.on('error', function (err) {
 			debug("Network error", err);
 			self.log('error',"Network error: " + err.message);
@@ -62,9 +66,23 @@ instance.prototype.config_fields = function () {
 			type: 'textinput',
 			id: 'host',
 			label: 'Device IP',
-			width: 6,
+			width: 12,
 			regex: self.REGEX_IP
 		},
+		{
+			type: 'textinput',
+			id: 'password',
+			label: 'Password',
+			width: 6,
+			default: 'SS-CDR250N'
+		},
+		{
+			type: 'text',
+			id: 'info',
+			width: 6,
+			label: 'Information',
+			value: 'You only need to change the password here if you have changed it from the default password of the device.'
+		}
 	]
 };
 
