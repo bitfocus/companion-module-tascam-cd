@@ -101,14 +101,14 @@ instance.prototype.destroy = function() {
 instance.prototype.actions = function(system) {
 	var self = this;
 	self.system.emit('instance_actions', self.id, {
-		'play': { label: 'Play' },
+		'play':        { label: 'Play' },
 		'recordready': { label: 'Record ready' },
-		'record': { label: 'Record' },
-		'mark': { label: 'Mark track (while recording)' },
-		'stop': { label: 'Stop' },
-		'pause': { label: 'Pause' },
-		'prev': { label: 'Previous track' },
-		'next': { label: 'Next track' },
+		'record':      { label: 'Record' },
+		'mark':        { label: 'Mark track (while recording)' },
+		'stop':        { label: 'Stop' },
+		'pause':       { label: 'Pause' },
+		'prev':        { label: 'Previous track' },
+		'next':        { label: 'Next track' },
 		'jump': {
 			label: 'Jump to track',
 			options: [
@@ -120,7 +120,9 @@ instance.prototype.actions = function(system) {
 					default: 1
 				}
 			]
-		}
+		},
+		'powerOn':     { label: 'Power on' },
+		'powerOff':    { label: 'Power off' }
 	});
 }
 
@@ -169,6 +171,14 @@ instance.prototype.action = function(action) {
 			var track = ('0000' + opt.track).substr(-4);
 			cmd += track.substr(2);
 			cmd += track.substr(0, 2);
+			break;
+
+		case 'powerOn':
+			cmd += '7500';
+			break;
+
+		case 'powerOff':
+			cmd += '7511';
 			break;
 	}
 
