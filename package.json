@@ -1,6 +1,11 @@
 {
-  "name": "companion-module-tascamcd",
-  "version": "0.0.1",
+  "name": "tascamcd",
+  "version": "1.0.0",
+	"api_version": "1.0.0",
+	"keywords": [ "CD", "Recorders", "Audio" ],
+	"manufacturer": "Tascam",
+	"product": "SS-CDR250N / SS-R250N",
+	"shortname": "tascam",
   "description": "Remote control of Tascam CD Recorders",
   "main": "index.js",
   "scripts": {
