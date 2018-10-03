@@ -81,7 +81,7 @@ instance.prototype.config_fields = function () {
 			id: 'info',
 			width: 6,
 			label: 'Information',
-			value: 'Default password for SS-CDR250N is SS-CDR250N. Default password for SS-R250N is SS-R250N.'
+			value: 'You only need to change the password here if you have changed it from the default password of the device.'
 		}
 	]
 };
