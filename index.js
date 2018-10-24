@@ -28,7 +28,6 @@ instance.prototype.init = function() {
 	log = self.log;
 
 	self.status(self.STATE_UNKNOWN);
-	self.init_presets();
 
 	self.init_tcp();
 };
