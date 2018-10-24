@@ -10,14 +10,12 @@ function instance(system, id, config) {
 	instance_skel.apply(this, arguments);
 
 	self.actions(); // export actions
-	self.init_presets();
 
 	return self;
 }
 
 instance.prototype.updateConfig = function(config) {
 	var self = this;
-	self.init_presets();
 
 	self.config = config;
 	self.init_tcp();
