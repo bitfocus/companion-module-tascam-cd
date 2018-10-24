@@ -28,6 +28,7 @@ instance.prototype.init = function() {
 	log = self.log;
 
 	self.status(self.STATE_UNKNOWN);
+	self.init_presets();
 
 	self.init_tcp();
 };
@@ -97,6 +98,202 @@ instance.prototype.destroy = function() {
 	debug("destroy", self.id);;
 };
 
+instance.prototype.init_presets = function () {
+	var self = this;
+	var presets = [];
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Play',
+			bank: {
+				style: 'text',
+				text: 'PLAY',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'play'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Record Ready',
+			bank: {
+				style: 'text',
+				text: 'RECORD READY',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'recordready'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Record',
+			bank: {
+				style: 'text',
+				text: 'RECORD',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'record'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Mark Track',
+			bank: {
+				style: 'text',
+				text: 'MARK\\nTRACK',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'mark'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Stop',
+			bank: {
+				style: 'text',
+				text: 'STOP',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'stop'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Pause',
+			bank: {
+				style: 'text',
+				text: 'PAUSE',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'pause'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Previous Track',
+			bank: {
+				style: 'text',
+				text: 'PREV\\nTRACK',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'prev'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Next Track',
+			bank: {
+				style: 'text',
+				text: 'NEXT\\nTRACK',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'next'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Transport Control',
+			label: 'Jump to track',
+			bank: {
+				style: 'text',
+				text: 'JUMP\\nTO\\nTRACK',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'jump',
+					options: {
+						track: '1'
+					}
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Power Control',
+			label: 'Power On',
+			bank: {
+				style: 'text',
+				text: 'POWER\\nON',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'powerOn'
+				}
+			]
+		});
+
+		presets.push({
+			category: 'Power Control',
+			label: 'Power Off',
+			bank: {
+				style: 'text',
+				text: 'POWER\\nOFF',
+				size: '14',
+				color: '16777215',
+				bgcolor: 0
+			},
+			actions: [
+				{
+					action: 'powerOff'
+				}
+			]
+		});
+
+	self.setPresetDefinitions(presets);
+}
 
 instance.prototype.actions = function(system) {
 	var self = this;
