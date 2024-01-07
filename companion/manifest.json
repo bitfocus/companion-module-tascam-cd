@@ -1,0 +1,26 @@
+{
+	"id": "tascam-cd",
+	"name": "tascam-cd",
+	"shortname": "SS-CDR250N / SS-R250N",
+	"description": "Bitfocus Companion module for the Tascam SS-CDR250N and SS-R250N",
+	"version": "2.0.0",
+	"license": "MIT",
+	"repository": "git+",
+	"bugs": "",
+	"maintainers": [
+		{
+			"name": "Phillip Ivan Pietruschka",
+			"email": "ivanpietruschka@gmail.com"
+		}
+	],
+	"runtime": {
+		"type": "node18",
+		"Sapi": "nodejs-ipc",
+		"apiVersion": "0.0.0",
+		"entrypoint": "../src/main.js"
+	},
+	"legacyIds": ["tascamcd"],
+	"manufacturer": "Tascam",
+	"products": ["SS-CDR250N", "SS-R250N"],
+	"keywords": ["Hardware", "Audio", "CD", "Recorder", "SD", "USB"]
+}
