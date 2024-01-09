@@ -36,7 +36,7 @@ module.exports = {
 				width: 6,
 				default: 'SS-CDR250N',
 				regex: '/^.{0,10}/g',
-				tooltip: 'Defaults to model name: SS-CDR250N / SS-R250N'
+				tooltip: 'Defaults to model name: SS-CDR250N / SS-R250N',
 			},
 		]
 	},
