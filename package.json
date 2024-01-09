@@ -1,6 +1,6 @@
 {
 	"name": "tascam-cd",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"main": "src/main.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -11,10 +11,10 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+"
+		"url": "git+https://github.com/bitfocus/companion-module-tascam-cd.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.6.0"
+		"@companion-module/base": "~1.7.0"
 	},
 	"devDependencies": {
 		"@companion-module/tools": "^1.4.2"

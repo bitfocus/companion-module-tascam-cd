@@ -1,4 +1,5 @@
 const { combineRgb } = require('@companion-module/base')
+const { SOM, cmd } = require('./consts.js')
 
 module.exports = async function (self) {
 	self.setFeedbackDefinitions({
@@ -22,6 +23,9 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.status == self.recorder.repeat
 			},
+			subscribe: async () => {
+				self.addCmdtoQueue(SOM + cmd.repeatModeSelect + 'FF')
+			},
 		},
 		incrPlay: {
 			name: 'Incremental Play',
@@ -43,6 +47,9 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.status == self.recorder.incrPlay
 			},
+			subscribe: async () => {
+				self.addCmdtoQueue(SOM + cmd.incrPlaySelect + 'FF')
+			},
 		},
 		remoteLocal: {
 			name: 'Remote/Local Control',
@@ -63,6 +70,9 @@ module.exports = async function (self) {
 			],
 			callback: ({ options }) => {
 				return options.status == self.recorder.remoteLocal
+			},
+			subscribe: async () => {
+				self.addCmdtoQueue(SOM + cmd.remoteLocalModeSelect + 'FF')
 			},
 		},
 		playMode: {
@@ -169,6 +179,9 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.device == self.recorder.device
 			},
+			subscribe: async () => {
+				self.addCmdtoQueue(SOM + cmd.deviceSelect + 'FF')
+			},
 		},
 		playArea: {
 			name: 'Play Area',
@@ -189,6 +202,9 @@ module.exports = async function (self) {
 			],
 			callback: ({ options }) => {
 				return options.playArea == self.recorder.playArea
+			},
+			subscribe: async () => {
+				self.addCmdtoQueue(SOM + cmd.playAreaSelect + 'FF')
 			},
 		},
 	})
