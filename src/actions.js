@@ -135,6 +135,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoCueLevelPreset + options.mode)
+				self.addCmdtoQueue(SOM + cmd.autoCueLevelPreset + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -155,6 +156,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + options.mode)
+				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -198,6 +200,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + options.mode)
+				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -218,6 +221,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoCueSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.autoCueSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -238,6 +242,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.autoTrackSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -258,6 +263,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.pitchControlSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.pitchControlSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -278,6 +284,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoReadySelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.autoReadySelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -298,6 +305,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.repeatModeSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.repeatModeSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -318,6 +326,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.syncRecSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.syncRecSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -338,6 +347,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.incrPlaySelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.incrPlaySelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -358,6 +368,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.keyControlSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.keyControlSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -378,6 +389,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.remoteLocalModeSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.remoteLocalModeSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -398,9 +410,12 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.playModeSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.playModeSense)
 			},
 			//learn: async () => {},
-			//subscribe: async () => {},
+			subscribe: async () => {
+				self.addCmdtoQueue(SOM + cmd.playModeSense)
+			},
 		},
 		specifiedDeviceStatusSense: {
 			name: 'Specified Device Status Sense',
@@ -473,6 +488,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.deviceSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.deviceSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -510,6 +526,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.playAreaSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.playAreaSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -530,6 +547,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.fileNameSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.fileNameSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {
@@ -568,6 +586,7 @@ module.exports = function (self) {
 			],
 			callback: async ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.inputSelect + options.mode)
+				self.addCmdtoQueue(SOM + cmd.inputSelect + 'FF')
 			},
 			//learn: async () => {},
 			subscribe: async () => {

@@ -56,6 +56,7 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 
 	initVariables() {
 		this.recorder = {
+			loggedIn: false,
 			mechaStatus: 'unknown',
 			repeat: 'unknown',
 			incrPlay: 'unknown',

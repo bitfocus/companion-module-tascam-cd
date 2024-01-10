@@ -79,6 +79,7 @@ export const cmd = {
 export const resp = {
 	password: 'Enter Password',
 	loginSuccess: 'Login Successful',
+	loginFail: 'Password is different',
 	keepAlive: 'FA',
 	infoReturn: '8F',
 	flashLoadAck: '97',
