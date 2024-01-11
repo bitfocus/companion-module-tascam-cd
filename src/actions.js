@@ -8,7 +8,7 @@ module.exports = function (self) {
 			description:
 				'STOP puts the controlled device into the stop state and also takes the controlled device out of input monitor mode.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.stop)
 			},
 		},
@@ -17,7 +17,7 @@ module.exports = function (self) {
 			description:
 				'Play puts the controlled device into playback mode and also brings the controlled device from record ready mode to recording mode.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.play)
 			},
 		},
@@ -34,7 +34,7 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.record + options.mode)
 			},
 		},
@@ -42,7 +42,7 @@ module.exports = function (self) {
 			name: 'Pause',
 			description: 'READY puts the controlled device into playback standby mode or record ready mode.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.pause + '01')
 			},
 		},
@@ -58,7 +58,7 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.jog + options.mode)
 			},
 		},
@@ -75,7 +75,7 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.shuttle + options.mode)
 			},
 		},
@@ -83,7 +83,7 @@ module.exports = function (self) {
 			name: 'Flash Load',
 			description: 'FLASH LOAD puts the controlled device into Flash Load mode.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.flashLoad)
 			},
 		},
@@ -92,7 +92,7 @@ module.exports = function (self) {
 			description:
 				'EJECT ejects a CD Media from the controlled device. (If the controlled device is SS-R250N, it returns ILLEGAL [F2].) If the device selected on the controlled device is not CD, this command is ignored.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.eject)
 			},
 		},
@@ -108,7 +108,7 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.skip + options.mode)
 			},
 		},
@@ -117,7 +117,7 @@ module.exports = function (self) {
 			description:
 				'CALL locates the controlled device to a call point and puts the controlled device into the ready state.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.call)
 			},
 		},
@@ -133,12 +133,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoCueLevelPreset + options.mode)
 				self.addCmdtoQueue(SOM + cmd.autoCueLevelPreset + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.autoCueLevelPreset + 'FF')
 			},
 		},
@@ -154,12 +154,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + options.mode)
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
 			},
 		},
@@ -177,14 +177,14 @@ module.exports = function (self) {
 					tooltip: 'Enter a 1 to 4 digit track number.',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				let num = ('0000' + options.track).substr(-4)
 				let track = num.substr(2)
 				track += num.substr(0, 2)
 				self.addCmdtoQueue(SOM + cmd.directTrackSearchPreset + track)
 			},
-			//learn: async () => {},
-			//subscribe: async () => {},
+			//learn: () => {},
+			//subscribe: () => {},
 		},
 		syncRecLevelPreset: {
 			name: 'Sync Rec Level Preset',
@@ -198,12 +198,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + options.mode)
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
 			},
 		},
@@ -219,12 +219,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoCueSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.autoCueSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.autoCueSelect + 'FF')
 			},
 		},
@@ -240,12 +240,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.autoTrackSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.autoTrackSelect + 'FF')
 			},
 		},
@@ -261,12 +261,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.pitchControlSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.pitchControlSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.pitchControlSelect + 'FF')
 			},
 		},
@@ -282,12 +282,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.autoReadySelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.autoReadySelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.autoReadySelect + 'FF')
 			},
 		},
@@ -303,12 +303,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.repeatModeSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.repeatModeSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.repeatModeSelect + 'FF')
 			},
 		},
@@ -324,12 +324,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.syncRecSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.syncRecSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.syncRecSelect + 'FF')
 			},
 		},
@@ -345,12 +345,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.incrPlaySelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.incrPlaySelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.incrPlaySelect + 'FF')
 			},
 		},
@@ -366,12 +366,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.keyControlSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.keyControlSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.keyControlSelect + 'FF')
 			},
 		},
@@ -387,12 +387,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.remoteLocalModeSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.remoteLocalModeSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.remoteLocalModeSelect + 'FF')
 			},
 		},
@@ -408,12 +408,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.playModeSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.playModeSense)
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.playModeSense)
 			},
 		},
@@ -430,11 +430,11 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.specifiedDeviceStatusSense + options.mode)
 			},
-			//learn: async () => {},
-			//subscribe: async () => {},
+			//learn: () => {},
+			//subscribe: () => {},
 		},
 		currentTrackTime: {
 			name: 'Current Track Time Sense',
@@ -449,12 +449,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.recorder.track.currentTrackTime = options.mode
 				self.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + self.recorder.track.currentTrackTime)
 			},
-			//learn: async () => {},
-			//subscribe: async () => {},
+			//learn: () => {},
+			//subscribe: () => {},
 		},
 		powerControl: {
 			name: 'Power Control',
@@ -468,11 +468,11 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.powerControl + options.mode)
 			},
-			//learn: async () => {},
-			//subscribe: async () => {},
+			//learn: () => {},
+			//subscribe: () => {},
 		},
 		deviceSelect: {
 			name: 'Device Select',
@@ -486,12 +486,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.deviceSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.deviceSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.deviceSelect + 'FF')
 			},
 		},
@@ -500,7 +500,7 @@ module.exports = function (self) {
 			description:
 				'The File currently in playback standby mode on the controlled device is divided into two files at that point.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.divide)
 			},
 		},
@@ -508,7 +508,7 @@ module.exports = function (self) {
 			name: 'Delete',
 			description: 'The file(s) for the current track on the controlled device are deleted.',
 			options: [],
-			callback: async () => {
+			callback: () => {
 				self.addCmdtoQueue(SOM + cmd.delete)
 			},
 		},
@@ -524,12 +524,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.playAreaSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.playAreaSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.playAreaSelect + 'FF')
 			},
 		},
@@ -545,12 +545,12 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.fileNameSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.fileNameSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.fileNameSelect + 'FF')
 			},
 		},
@@ -566,11 +566,11 @@ module.exports = function (self) {
 					default: '00',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.mediaFormat + options.mode)
 			},
-			//learn: async () => {},
-			//subscribe: async () => {},
+			//learn: () => {},
+			//subscribe: () => {},
 		},
 		inputSelect: {
 			name: 'Input Select',
@@ -584,12 +584,12 @@ module.exports = function (self) {
 					default: '000000',
 				},
 			],
-			callback: async ({ options }) => {
+			callback: ({ options }) => {
 				self.addCmdtoQueue(SOM + cmd.inputSelect + options.mode)
 				self.addCmdtoQueue(SOM + cmd.inputSelect + 'FF')
 			},
-			//learn: async () => {},
-			subscribe: async () => {
+			//learn: () => {},
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.inputSelect + 'FF')
 			},
 		},

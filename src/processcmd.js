@@ -1,7 +1,7 @@
 const { resp, cmd, cmdOnLogin, SOM } = require('./consts.js')
 
 module.exports = {
-	async processCmd(chunk) {
+	processCmd(chunk) {
 		let reply = chunk.toString()
 		this.log('debug', `response recieved: ${reply}`)
 
@@ -143,7 +143,7 @@ module.exports = {
 				this.addCmdtoQueue(SOM + cmd.cautionSense)
 				break
 			case resp.illegalStatus:
-				this.log('warn', 'Illegal Status: Invalid Command')
+				this.log('warn', `Illegal Status, Invalid Command: ${reply.substr(3)}`)
 				break
 			case resp.powerOnStatus:
 				this.log('info', 'powerOnStatus')

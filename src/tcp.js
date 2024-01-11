@@ -41,7 +41,7 @@ module.exports = {
 	},
 
 	//queries made on initial connection.
-	async queryOnConnect() {
+	queryOnConnect() {
 		this.sendCommand('  ')
 		this.recorder.loggedIn = true
 		if (this.config.password == '') {
