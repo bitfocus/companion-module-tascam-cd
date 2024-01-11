@@ -3,7 +3,7 @@
 	"name": "tascam-cd",
 	"shortname": "SS-CDR250N / SS-R250N",
 	"description": "Bitfocus Companion module for the Tascam SS-CDR250N and SS-R250N",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-tascam-cd.git",
 	"bugs": "https://github.com/bitfocus/companion-module-tascam-cd/issues",
