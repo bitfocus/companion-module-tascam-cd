@@ -13,14 +13,19 @@ module.exports = {
 				this.updateStatus('ok', 'Logged in')
 				this.log('info', 'OK: Logged In')
 				this.recorder.loggedIn = true
+				this.stopTimeOut()
+				this.startCmdQueue()
+				this.startKeepAlive()
 				for (let i = 0; i < cmdOnLogin.length; i++) {
 					this.addCmdtoQueue(SOM + cmdOnLogin[i])
 				}
-				this.startKeepAlive()
 				return true
 			case resp.loginFail:
 				this.recorder.loggedIn = false
 				this.log('error', 'Password is incorrect')
+				this.stopCmdQueue()
+				this.stopKeepAlive()
+				this.startTimeOut()
 				return false
 		}
 		while (reply[0] != SOM && reply.length > 0) {

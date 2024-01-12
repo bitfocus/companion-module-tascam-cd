@@ -7,7 +7,7 @@ const config = require('./config.js')
 const choices = require('./choices.js')
 const tcp = require('./tcp.js')
 const processCmd = require('./processcmd.js')
-const { EndSession, msgDelay } = require('./consts.js')
+const { EndSession } = require('./consts.js')
 
 class TASCAM_SS_CDR250N extends InstanceBase {
 	constructor(internal) {
@@ -15,28 +15,27 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 		Object.assign(this, { ...config, ...tcp, ...processCmd, ...choices })
 		this.keepAliveTimer = {}
 		this.cmdTimer = {}
+		this.timeOutTimer = {}
 		this.cmdQueue = []
 	}
 	async init(config) {
 		this.updateStatus('Starting')
 		this.config = config
-		this.cmdTimer = setTimeout(() => {
-			this.processCmdQueue()
-		}, msgDelay)
 		this.initVariables()
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
 		this.updateVariableValues()
 		this.initTCP()
+		this.startTimeOut()
 	}
 	// When module gets deleted
 	async destroy() {
 		this.log('debug', `destroy. ID: ${this.id}`)
 		clearTimeout(this.keepAliveTimer)
-		clearTimeout(this.cmdTimer)
-		this.keepAliveTimer = null
-		this.cmdTimer = null
+		this.stopCmdQueue()
+		this.stopTimeOut()
+		this.stopKeepAlive()
 		if (this.socket) {
 			this.sendCommand(EndSession)
 			this.socket.destroy()
