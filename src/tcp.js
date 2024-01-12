@@ -69,10 +69,12 @@ module.exports = {
 		this.sendCommand('  ')
 		if (this.config.password == '') {
 			this.recorder.loggedIn = true
+			this.stopTimeOut()
+			this.startCmdQueue()
+			this.startKeepAlive()
 			for (let i = 0; i < cmdOnLogin.length; i++) {
 				this.addCmdtoQueue(SOM + cmdOnLogin[i])
 			}
-			this.startKeepAlive()
 		}
 		return true
 	},
