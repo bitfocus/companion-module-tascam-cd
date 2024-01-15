@@ -13,9 +13,6 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 	constructor(internal) {
 		super(internal)
 		Object.assign(this, { ...config, ...tcp, ...processCmd, ...choices })
-		this.keepAliveTimer = {}
-		this.cmdTimer = {}
-		this.timeOutTimer = {}
 		this.cmdQueue = []
 	}
 	async init(config) {
@@ -32,13 +29,13 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 	// When module gets deleted
 	async destroy() {
 		this.log('debug', `destroy. ID: ${this.id}`)
-		clearTimeout(this.keepAliveTimer)
 		this.stopCmdQueue()
 		this.stopTimeOut()
 		this.stopKeepAlive()
 		if (this.socket) {
 			this.sendCommand(EndSession)
 			this.socket.destroy()
+			delete this.socket
 		}
 		this.updateStatus(InstanceStatus.Disconnected)
 	}

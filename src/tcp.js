@@ -37,7 +37,10 @@ module.exports = {
 
 	startCmdQueue() {
 		this.log('debug', 'starting cmdTimer')
-		clearTimeout(this.cmdTimer)
+		if (this.cmdTimer) {
+			clearTimeout(this.cmdTimer)
+			delete this.cmdTimer
+		}
 		this.cmdTimer = setTimeout(() => {
 			this.processCmdQueue()
 		}, msgDelay)
@@ -46,7 +49,7 @@ module.exports = {
 	stopCmdQueue() {
 		this.log('debug', 'stopping cmdTimer')
 		clearTimeout(this.cmdTimer)
-		this.cmdTimer = null
+		delete this.cmdTimer
 	},
 
 	sendCommand(msg) {
@@ -92,7 +95,10 @@ module.exports = {
 
 	startKeepAlive() {
 		this.log('debug', 'starting keepAlive')
-		clearTimeout(this.keepAliveTimer)
+		if (this.keepAliveTimer) {
+			clearTimeout(this.keepAliveTimer)
+			delete this.keepAliveTimer
+		}
 		this.keepAliveTimer = setTimeout(() => {
 			this.keepAlive()
 		}, keepAliveInterval)
@@ -101,7 +107,7 @@ module.exports = {
 	stopKeepAlive() {
 		this.log('debug', 'stopping keepAlive')
 		clearTimeout(this.keepAliveTimer)
-		this.keepAliveTimer = null
+		delete this.keepAliveTimer
 	},
 
 	timeOut() {
@@ -115,7 +121,10 @@ module.exports = {
 
 	startTimeOut() {
 		this.log('debug', 'starting timeOutTimer')
-		clearTimeout(this.timeOutTimer)
+		if (this.timeOutTimer) {
+			clearTimeout(this.timeOutTimer)
+			delete this.timeOutTimer
+		}
 		this.timeOutTimer = setTimeout(() => {
 			this.timeOut()
 		}, timeOutInterval)
@@ -124,7 +133,7 @@ module.exports = {
 	stopTimeOut() {
 		this.log('debug', 'stopping timeOutTimer')
 		clearTimeout(this.timeOutTimer)
-		this.timeOutTimer = null
+		delete this.timeOutTimer
 	},
 
 	initTCP() {

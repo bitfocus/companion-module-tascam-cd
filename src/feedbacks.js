@@ -95,6 +95,9 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.status == self.recorder.playMode
 			},
+			subscribe: () => {
+				self.addCmdtoQueue(SOM + cmd.playModeSense)
+			},
 		},
 		mechaStatus: {
 			name: 'Mecha Status',
