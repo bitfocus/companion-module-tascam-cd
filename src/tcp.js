@@ -1,19 +1,29 @@
 const { InstanceStatus, TCPHelper } = require('@companion-module/base')
-const { msgDelay, cmd, cmdOnKeepAlive, SOM, EOM, EndSession, keepAliveInterval, cmdOnLogin } = require('./consts.js')
+const {
+	msgDelay,
+	cmd,
+	cmdOnKeepAlive,
+	SOM,
+	EOM,
+	EndSession,
+	keepAliveInterval,
+	timeOutInterval,
+	cmdOnLogin,
+} = require('./consts.js')
 
 module.exports = {
-	async addCmdtoQueue(msg) {
+	addCmdtoQueue(msg) {
 		if (msg !== undefined && msg.length > 0) {
-			await this.cmdQueue.push(msg)
+			this.cmdQueue.push(msg)
 			return true
 		}
 		this.log('warn', `Invalid command: ${msg}`)
 		return false
 	},
 
-	async processCmdQueue() {
-		if (this.cmdQueue.length > 0) {
-			this.sendCommand(await this.cmdQueue.splice(0, 1))
+	processCmdQueue() {
+		if (this.cmdQueue.length > 0 && this.recorder.loggedIn) {
+			this.sendCommand(this.cmdQueue.splice(0, 1))
 			this.cmdTimer = setTimeout(() => {
 				this.processCmdQueue()
 			}, msgDelay)
@@ -21,11 +31,28 @@ module.exports = {
 		}
 		this.cmdTimer = setTimeout(() => {
 			this.processCmdQueue()
-		}, msgDelay / 4)
+		}, msgDelay)
 		return undefined
 	},
 
-	async sendCommand(msg) {
+	startCmdQueue() {
+		this.log('debug', 'starting cmdTimer')
+		if (this.cmdTimer) {
+			clearTimeout(this.cmdTimer)
+			delete this.cmdTimer
+		}
+		this.cmdTimer = setTimeout(() => {
+			this.processCmdQueue()
+		}, msgDelay)
+	},
+
+	stopCmdQueue() {
+		this.log('debug', 'stopping cmdTimer')
+		clearTimeout(this.cmdTimer)
+		delete this.cmdTimer
+	},
+
+	sendCommand(msg) {
 		if (msg !== undefined) {
 			if (this.socket !== undefined && this.socket.isConnected) {
 				this.log('debug', `Sending Command: ${msg}`)
@@ -41,9 +68,13 @@ module.exports = {
 	},
 
 	//queries made on initial connection.
-	async queryOnConnect() {
+	queryOnConnect() {
 		this.sendCommand('  ')
 		if (this.config.password == '') {
+			this.recorder.loggedIn = true
+			this.stopTimeOut()
+			this.startCmdQueue()
+			this.startKeepAlive()
 			for (let i = 0; i < cmdOnLogin.length; i++) {
 				this.addCmdtoQueue(SOM + cmdOnLogin[i])
 			}
@@ -62,12 +93,59 @@ module.exports = {
 		}, keepAliveInterval)
 	},
 
+	startKeepAlive() {
+		this.log('debug', 'starting keepAlive')
+		if (this.keepAliveTimer) {
+			clearTimeout(this.keepAliveTimer)
+			delete this.keepAliveTimer
+		}
+		this.keepAliveTimer = setTimeout(() => {
+			this.keepAlive()
+		}, keepAliveInterval)
+	},
+
+	stopKeepAlive() {
+		this.log('debug', 'stopping keepAlive')
+		clearTimeout(this.keepAliveTimer)
+		delete this.keepAliveTimer
+	},
+
+	timeOut() {
+		//dump cmdQueue to prevent excessive queuing of old commands
+		this.log('debug', 'timeout reached purging queued commands')
+		this.cmdQueue = []
+		this.timeOutTimer = setTimeout(() => {
+			this.timeOut()
+		}, timeOutInterval)
+	},
+
+	startTimeOut() {
+		this.log('debug', 'starting timeOutTimer')
+		if (this.timeOutTimer) {
+			clearTimeout(this.timeOutTimer)
+			delete this.timeOutTimer
+		}
+		this.timeOutTimer = setTimeout(() => {
+			this.timeOut()
+		}, timeOutInterval)
+	},
+
+	stopTimeOut() {
+		this.log('debug', 'stopping timeOutTimer')
+		clearTimeout(this.timeOutTimer)
+		delete this.timeOutTimer
+	},
+
 	initTCP() {
 		this.receiveBuffer = ''
 		if (this.socket !== undefined) {
 			this.sendCommand(EndSession)
 			this.socket.destroy()
 			delete this.socket
+			this.recorder.loggedIn = false
+			this.startTimeOut()
+			this.stopCmdQueue()
+			this.stopKeepAlive()
 		}
 		if (this.config.host) {
 			this.log('debug', 'Creating New Socket')
@@ -80,14 +158,16 @@ module.exports = {
 			})
 			this.socket.on('error', (err) => {
 				this.log('error', `Network error: ${err.message}`)
-				clearTimeout(this.keepAliveTimer)
+				this.recorder.loggedIn = false
+				this.stopKeepAlive()
+				this.stopCmdQueue()
+				this.startTimeOut()
 			})
 			this.socket.on('connect', () => {
 				this.log('info', `Connected to ${this.config.host}:${this.config.port}`)
+				this.receiveBuffer = ''
+				this.recorder.loggedIn = false
 				this.queryOnConnect()
-				this.keepAliveTimer = setTimeout(() => {
-					this.keepAlive()
-				}, keepAliveInterval)
 			})
 			this.socket.on('data', (chunk) => {
 				let i = 0,

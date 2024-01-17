@@ -1,5 +1,6 @@
 export const msgDelay = 20 // Make sure that commands are sent at a minimum of 20-millisecond intervals.
 export const keepAliveInterval = 1000
+export const timeOutInterval = 15000
 export const SOM = '0'
 export const EOM = '\r\n'
 export const EndSession = 'exit'
@@ -79,6 +80,7 @@ export const cmd = {
 export const resp = {
 	password: 'Enter Password',
 	loginSuccess: 'Login Successful',
+	loginFail: 'Password is different',
 	keepAlive: 'FA',
 	infoReturn: '8F',
 	flashLoadAck: '97',

@@ -1,21 +1,32 @@
 const { resp, cmd, cmdOnLogin, SOM } = require('./consts.js')
 
 module.exports = {
-	async processCmd(chunk) {
+	processCmd(chunk) {
 		let reply = chunk.toString()
 		this.log('debug', `response recieved: ${reply}`)
 
 		switch (reply) {
 			case resp.password:
-				this.addCmdtoQueue(this.config.password)
+				this.sendCommand(this.config.password)
 				return true
 			case resp.loginSuccess:
 				this.updateStatus('ok', 'Logged in')
 				this.log('info', 'OK: Logged In')
+				this.recorder.loggedIn = true
+				this.stopTimeOut()
+				this.startCmdQueue()
+				this.startKeepAlive()
 				for (let i = 0; i < cmdOnLogin.length; i++) {
 					this.addCmdtoQueue(SOM + cmdOnLogin[i])
 				}
 				return true
+			case resp.loginFail:
+				this.recorder.loggedIn = false
+				this.log('error', 'Password is incorrect')
+				this.stopCmdQueue()
+				this.stopKeepAlive()
+				this.startTimeOut()
+				return false
 		}
 		while (reply[0] != SOM && reply.length > 0) {
 			reply = reply.slice(1)
@@ -25,6 +36,7 @@ module.exports = {
 		}
 		let response = reply.substr(1, 2)
 		let venderCmd = reply.substr(1, 6)
+		venderCmd = venderCmd.substr(0, 4) == resp.deviceSelectReturn ? venderCmd.substr(0, 4) : venderCmd
 		let param = []
 		let varList = []
 		switch (response) {
@@ -136,7 +148,7 @@ module.exports = {
 				this.addCmdtoQueue(SOM + cmd.cautionSense)
 				break
 			case resp.illegalStatus:
-				this.log('warn', 'Illegal Status: Invalid Command')
+				this.log('warn', `Illegal Status, Invalid Command: ${reply.substr(3)}`)
 				break
 			case resp.powerOnStatus:
 				this.log('info', 'powerOnStatus')

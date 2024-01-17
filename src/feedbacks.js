@@ -23,7 +23,7 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.status == self.recorder.repeat
 			},
-			subscribe: async () => {
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.repeatModeSelect + 'FF')
 			},
 		},
@@ -47,7 +47,7 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.status == self.recorder.incrPlay
 			},
-			subscribe: async () => {
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.incrPlaySelect + 'FF')
 			},
 		},
@@ -71,7 +71,7 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.status == self.recorder.remoteLocal
 			},
-			subscribe: async () => {
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.remoteLocalModeSelect + 'FF')
 			},
 		},
@@ -94,6 +94,9 @@ module.exports = async function (self) {
 			],
 			callback: ({ options }) => {
 				return options.status == self.recorder.playMode
+			},
+			subscribe: () => {
+				self.addCmdtoQueue(SOM + cmd.playModeSense)
 			},
 		},
 		mechaStatus: {
@@ -179,7 +182,7 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.device == self.recorder.device
 			},
-			subscribe: async () => {
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.deviceSelect + 'FF')
 			},
 		},
@@ -203,7 +206,7 @@ module.exports = async function (self) {
 			callback: ({ options }) => {
 				return options.playArea == self.recorder.playArea
 			},
-			subscribe: async () => {
+			subscribe: () => {
 				self.addCmdtoQueue(SOM + cmd.playAreaSelect + 'FF')
 			},
 		},
