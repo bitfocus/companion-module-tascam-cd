@@ -166,6 +166,9 @@ Enter the IP address, port of the media player. If a password is required, enter
 
 ## Version History
 
+### Version 2.0.3
+- Track Number & Track Time variable fixes
+
 ### Version 2.0.2
 - Minor fixes
 

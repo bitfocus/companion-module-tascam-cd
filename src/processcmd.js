@@ -111,7 +111,7 @@ module.exports = {
 			case resp.mediaStatusReturn:
 				break
 			case resp.trackCurrentInfoReturn:
-				param[0] = parseInt(reply[7] + reply[8] + reply[5] + reply[6])
+				param[0] = parseInt(reply[5] + reply[6] + reply[3] + reply[4])
 				this.recorder.track.number = isNaN(param[0]) ? this.recorder.track.number : param[0]
 				varList['trackNo'] = this.recorder.track.number
 				switch (this.recorder.device) {
@@ -120,10 +120,10 @@ module.exports = {
 					case '10': //usb
 					case '11': //cd
 					default:
-						param[1] = parseInt(`${reply[11]}${reply[12]}${reply[9]}${reply[10]}`) //total minutes
+						param[1] = parseInt(`${reply[9]}${reply[10]}${reply[7]}${reply[8]}`) //total minutes
 						param[2] = Math.floor(param[1] / 60)
 						param[3] = param[1] % 60
-						param[4] = parseInt(`${reply[13]}${reply[14]}`) //seconds
+						param[4] = parseInt(`${reply[11]}${reply[12]}`) //seconds
 						this.recorder.track.currentTrackTime = `${param[2]}:${param[3]}:${param[4]}`
 				}
 				varList['trackTime'] = this.recorder.track.currentTrackTime

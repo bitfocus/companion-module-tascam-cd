@@ -450,8 +450,8 @@ module.exports = function (self) {
 				},
 			],
 			callback: ({ options }) => {
-				self.recorder.track.currentTrackTime = options.mode
-				self.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + self.recorder.track.currentTrackTime)
+				self.recorder.currentTrackTimeMode = options.mode
+				self.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + self.recorder.track.currentTrackTimeMode)
 			},
 			//learn: () => {},
 			//subscribe: () => {},

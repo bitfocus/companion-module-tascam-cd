@@ -62,9 +62,10 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 			caution: 'unknown',
 			device: 'unknown',
 			playArea: 'unknown',
+			currentTrackTimeMode: '00',
 			track: {
 				number: 'unknown',
-				currentTrackTime: '00',
+				currentTrackTime: 'unknown',
 			},
 		}
 	}
