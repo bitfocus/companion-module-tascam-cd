@@ -446,12 +446,13 @@ module.exports = function (self) {
 					id: 'mode',
 					label: 'Mode',
 					choices: self.currentTrackTime_sense,
-					default: '00',
+					default: self.config.currentTrackTimeMode,
 				},
 			],
 			callback: ({ options }) => {
-				self.recorder.currentTrackTimeMode = options.mode
-				self.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + self.recorder.track.currentTrackTimeMode)
+				self.config.currentTrackTimeMode = options.mode
+				self.saveConfig(self.config)
+				self.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + self.config.currentTrackTimeMode)
 			},
 			//learn: () => {},
 			//subscribe: () => {},

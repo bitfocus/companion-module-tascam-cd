@@ -171,4 +171,5 @@ export const cmdOnLogin = [
 	cmd.playAreaSelect + 'FF',
 ]
 
-export const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense, cmd.currentTrackInfoSense]
+//export const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense, cmd.currentTrackInfoSense]
+export const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense]

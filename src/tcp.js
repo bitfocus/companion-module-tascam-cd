@@ -87,7 +87,7 @@ module.exports = {
 		for (let i = 0; i < cmdOnKeepAlive.length; i++) {
 			this.addCmdtoQueue(SOM + cmdOnKeepAlive[i])
 		}
-		this.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + this.recorder.currentTrackTimeMode)
+		this.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + this.config.currentTrackTimeMode)
 		this.keepAliveTimer = setTimeout(() => {
 			this.keepAlive()
 		}, keepAliveInterval)

@@ -210,5 +210,21 @@ module.exports = async function (self) {
 				self.addCmdtoQueue(SOM + cmd.playAreaSelect + 'FF')
 			},
 		},
+		eom: {
+			name: 'End Of Media',
+			type: 'boolean',
+			label: 'End of Media',
+			defaultStyle: {
+				bgcolor: combineRgb(255, 0, 0),
+				color: combineRgb(0, 0, 0),
+			},
+			options: [],
+			callback: () => {
+				return self.recorder.eom
+			},
+			subscribe: () => {
+				self.addCmdtoQueue(SOM + cmd.cmd.trackNumSense)
+			},
+		},
 	})
 }

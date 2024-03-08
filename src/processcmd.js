@@ -103,6 +103,8 @@ module.exports = {
 			case resp.specifiedDeviceStatusReturn:
 				break
 			case resp.trackNoStatusReturn:
+				this.recorder.eom = reply[3] + reply[4] == '01' ? true : false
+				this.checkFeedbacks('eom')
 				param[0] = parseInt(reply[7] + reply[8] + reply[5] + reply[6])
 				this.recorder.track.number = isNaN(param[0]) ? this.recorder.track.number : param[0]
 				varList['trackNo'] = this.recorder.track.number
@@ -130,6 +132,18 @@ module.exports = {
 				this.setVariableValues(varList)
 				break
 			case resp.trackCurrentTimeReturn:
+				param[0] = reply[3] + reply[4] //time mode
+				if (this.config.currentTrackTimeMode != param[0]) {
+					this.log('debug', `Configured Time Mode ${this.config.currentTrackTimeMode} Returned Time Mode ${param[0]}`)
+				}
+				param[1] = parseInt(`${reply[7]}${reply[8]}${reply[5]}${reply[6]}`) //total minutes
+				param[2] = Math.floor(param[1] / 60)
+				param[3] = param[1] % 60
+				param[4] = parseInt(`${reply[9]}${reply[10]}`) //seconds
+				param[5] = parseInt(`${reply[11]}${reply[12]}`) //frames
+				this.recorder.track.currentTrackTime = `${param[2]}:${param[3]}:${param[4]}`
+				varList['trackTime'] = this.recorder.track.currentTrackTime
+				this.setVariableValues(varList)
 				break
 			case resp.nameReturn:
 				break
