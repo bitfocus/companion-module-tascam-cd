@@ -18,6 +18,10 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 	async init(config) {
 		this.updateStatus('Starting')
 		this.config = config
+		if (this.config.currentTrackTimeMode === undefined) {
+			this.config.currentTrackTimeMode = '00'
+			this.saveConfig(this.config)
+		}
 		this.initVariables()
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
@@ -62,9 +66,10 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 			caution: 'unknown',
 			device: 'unknown',
 			playArea: 'unknown',
+			eom: false,
 			track: {
 				number: 'unknown',
-				currentTrackTime: '00',
+				currentTrackTime: 'unknown',
 			},
 		}
 	}
