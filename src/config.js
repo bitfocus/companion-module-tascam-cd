@@ -9,6 +9,7 @@ module.exports = {
 		this.updateActions()
 		this.updateFeedbacks()
 		this.updateVariableDefinitions()
+		this.updatePresetsDefinitions()
 	},
 	// Return config fields for web config
 	getConfigFields() {
