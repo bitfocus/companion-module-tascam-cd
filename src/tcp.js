@@ -150,7 +150,7 @@ module.exports = {
 		if (this.config.host) {
 			this.log('debug', 'Creating New Socket')
 
-			this.updateStatus(`Connecting to DA-6400: ${this.config.host}:${this.config.port}`)
+			this.updateStatus(InstanceStatus.Connecting, `Connecting to SS-CDR250N: ${this.config.host}`)
 			this.socket = new TCPHelper(this.config.host, this.config.port)
 
 			this.socket.on('status_change', (status, message) => {
@@ -158,6 +158,7 @@ module.exports = {
 			})
 			this.socket.on('error', (err) => {
 				this.log('error', `Network error: ${err.message}`)
+				this.updateStatus(InstanceStatus.ConnectionFailure, err.message)
 				this.recorder.loggedIn = false
 				this.stopKeepAlive()
 				this.stopCmdQueue()
@@ -165,6 +166,7 @@ module.exports = {
 			})
 			this.socket.on('connect', () => {
 				this.log('info', `Connected to ${this.config.host}:${this.config.port}`)
+				this.updateStatus(InstanceStatus.Connecting, `Logging in`)
 				this.receiveBuffer = ''
 				this.recorder.loggedIn = false
 				this.queryOnConnect()

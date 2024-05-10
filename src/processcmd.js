@@ -1,4 +1,5 @@
 const { resp, cmd, cmdOnLogin, SOM } = require('./consts.js')
+const { InstanceStatus } = require('@companion-module/base')
 
 module.exports = {
 	processCmd(chunk) {
@@ -10,7 +11,7 @@ module.exports = {
 				this.sendCommand(this.config.password)
 				return true
 			case resp.loginSuccess:
-				this.updateStatus('ok', 'Logged in')
+				this.updateStatus(InstanceStatus.Ok, 'Logged in')
 				this.log('info', 'OK: Logged In')
 				this.recorder.loggedIn = true
 				this.stopTimeOut()
@@ -22,7 +23,8 @@ module.exports = {
 				return true
 			case resp.loginFail:
 				this.recorder.loggedIn = false
-				this.log('error', 'Password is incorrect')
+				this.updateStatus(InstanceStatus.BadConfig, 'Incorrect Password')
+				this.log('error', 'Incorrect Password')
 				this.stopCmdQueue()
 				this.stopKeepAlive()
 				this.startTimeOut()

@@ -634,6 +634,12 @@ module.exports = async function (self) {
 			},
 		],
 	}
+	presets['skip-track-header'] = {
+		category: 'Transport',
+		type: 'text',
+		name: 'Track Skip',
+		text: '',
+	}
 	presets[`skip_back_track`] = {
 		type: 'button',
 		category: 'Transport',
@@ -689,6 +695,12 @@ module.exports = async function (self) {
 			},
 		],
 		feedbacks: [],
+	}
+	presets['skip-mark-header'] = {
+		category: 'Transport',
+		type: 'text',
+		name: 'Mark Skip',
+		text: '',
 	}
 	presets[`skip_back_mark`] = {
 		type: 'button',
@@ -746,6 +758,12 @@ module.exports = async function (self) {
 		],
 		feedbacks: [],
 	}
+	presets['skip-time-header'] = {
+		category: 'Transport',
+		type: 'text',
+		name: 'Time Skip',
+		text: '',
+	}
 	presets[`skip_back_time`] = {
 		type: 'button',
 		category: 'Transport',
@@ -801,6 +819,12 @@ module.exports = async function (self) {
 			},
 		],
 		feedbacks: [],
+	}
+	presets['jog-header'] = {
+		category: 'Transport',
+		type: 'text',
+		name: 'Jog',
+		text: '',
 	}
 	presets[`jog_back`] = {
 		type: 'button',
@@ -879,6 +903,12 @@ module.exports = async function (self) {
 				},
 			},
 		],
+	}
+	presets['shuttle-header'] = {
+		category: 'Transport',
+		type: 'text',
+		name: 'Shuttle',
+		text: '',
 	}
 	presets[`shuttle_back`] = {
 		type: 'button',

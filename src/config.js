@@ -1,8 +1,8 @@
-const { Regex } = require('@companion-module/base')
+const { InstanceStatus, Regex } = require('@companion-module/base')
 
 module.exports = {
 	async configUpdated(config) {
-		//let oldConfig = this.config
+		this.updateStatus(InstanceStatus.Connecting)
 		this.config = config
 		this.initTCP()
 		this.initVariables()
