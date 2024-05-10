@@ -17,7 +17,7 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 		this.cmdQueue = []
 	}
 	async init(config) {
-		this.updateStatus('Starting')
+		this.updateStatus(InstanceStatus.Connecting)
 		this.config = config
 		if (this.config.currentTrackTimeMode === undefined) {
 			this.config.currentTrackTimeMode = '00'
