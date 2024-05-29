@@ -36,7 +36,7 @@ module.exports = {
 				label: 'Password',
 				width: 6,
 				default: 'SS-CDR250N',
-				regex: '/^.{0,10}/',
+				regex: '/^.{0,10}$/',
 				tooltip: 'Defaults to model name: SS-CDR250N / SS-R250N',
 			},
 		]
