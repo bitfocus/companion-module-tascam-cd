@@ -23,7 +23,7 @@ module.exports = {
 				return true
 			case resp.loginFail:
 				this.recorder.loggedIn = false
-				this.updateStatus(InstanceStatus.BadConfig, 'Incorrect Password')
+				this.updateStatus(InstanceStatus.AuthenticationFailure, 'Incorrect Password')
 				this.log('error', 'Incorrect Password')
 				this.stopCmdQueue()
 				this.stopKeepAlive()
