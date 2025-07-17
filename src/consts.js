@@ -164,10 +164,10 @@ export const cmdOnLogin = [
 	cmd.trackNumSense,
 	cmd.deviceSelect + 'FF',
 	cmd.repeatModeSelect + 'FF',
-	cmd.resumePlaySelect + 'FF',
+	cmd.syncRecSelect + 'FF',
 	cmd.incrPlaySelect + 'FF',
 	cmd.remoteLocalModeSelect + 'FF',
-	cmd.playModeSelect + 'FF',
+	cmd.playModeSense,
 	cmd.playAreaSelect + 'FF',
 ]
 
