@@ -1,6 +1,6 @@
 {
 	"name": "tascam-cd",
-	"version": "2.1.5",
+	"version": "2.1.6",
 	"main": "src/main.js",
 	"scripts": {
 		"format": "prettier -w .",
@@ -14,16 +14,16 @@
 		"url": "git+https://github.com/bitfocus/companion-module-tascam-cd.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.11.3"
+		"@companion-module/base": "~1.12.1"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^2.1.1",
-		"eslint": "~9.19.0",
-		"prettier": "^3.4.2"
+		"@companion-module/tools": "^2.3.0",
+		"eslint": "~9.31.0",
+		"prettier": "^3.6.2"
 	},
 	"engines": {
-		"node": "^22.13"
+		"node": "^22.17"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json",
-	"packageManager": "yarn@4.6.0"
+	"packageManager": "yarn@4.9.2"
 }
