@@ -1,6 +1,6 @@
 {
 	"name": "tascam-cd",
-	"version": "2.1.6",
+	"version": "2.1.7",
 	"main": "src/main.js",
 	"scripts": {
 		"format": "prettier -w .",
