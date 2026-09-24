@@ -168,7 +168,7 @@ module.exports = {
 	inputSelect_mode: [
 		{ id: '000000', label: 'ANALOG BALANCED' },
 		{ id: '000001', label: 'ANALOG UNBALANCED' },
-		{ id: '00100', label: 'DIGITAL XLR' },
+		{ id: '000100', label: 'DIGITAL XLR' },
 		{ id: '000101', label: 'DIGITAL COAXIAL' },
 		{ id: '000200', label: 'IF-DA2(DANTE)' },
 		{ id: '00FF', label: 'Sense' },
