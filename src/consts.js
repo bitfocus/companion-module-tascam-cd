@@ -1,10 +1,10 @@
-export const msgDelay = 20 // Make sure that commands are sent at a minimum of 20-millisecond intervals.
-export const keepAliveInterval = 1000
-export const timeOutInterval = 15000
-export const SOM = '0'
-export const EOM = '\r\n'
-export const EndSession = 'exit'
-export const cmd = {
+const msgDelay = 20 // Make sure that commands are sent at a minimum of 20-millisecond intervals.
+const keepAliveInterval = 1000
+const timeOutInterval = 15000
+const SOM = '0'
+const EOM = '\r\n'
+const EndSession = 'exit'
+const cmd = {
 	infoReq: '0F',
 	stop: '10',
 	play: '12',
@@ -77,7 +77,7 @@ export const cmd = {
 	fileCountSense: '7F4A5E',
 }
 
-export const resp = {
+const resp = {
 	password: 'Enter Password',
 	loginSuccess: 'Login Successful',
 	loginFail: 'Password is different',
@@ -142,7 +142,7 @@ export const resp = {
 	fileCountReturn: 'FF4ADE',
 }
 
-export const respParam = {
+const respParam = {
 	mechaStatusReturn: {
 		noMedia: '00',
 		stop: '10',
@@ -157,7 +157,7 @@ export const respParam = {
 	},
 }
 
-export const cmdOnLogin = [
+const cmdOnLogin = [
 	cmd.errorSense,
 	cmd.cautionSense,
 	cmd.mechaStatusSense,
@@ -172,4 +172,18 @@ export const cmdOnLogin = [
 ]
 
 //export const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense, cmd.currentTrackInfoSense]
-export const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense]
+const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense]
+
+module.exports = {
+	msgDelay,
+	keepAliveInterval,
+	timeOutInterval,
+	SOM,
+	EOM,
+	EndSession,
+	cmd,
+	resp,
+	respParam,
+	cmdOnLogin,
+	cmdOnKeepAlive,
+}
