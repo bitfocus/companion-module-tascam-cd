@@ -172,7 +172,7 @@ module.exports = function (self) {
 					type: 'textinput',
 					id: 'track',
 					label: 'Track Number',
-					regex: '/^[0-9]{1,4}/g',
+					regex: '/^[0-9]{1,4}$/',
 					default: '0001',
 					tooltip: 'Enter a 1 to 4 digit track number.',
 				},
