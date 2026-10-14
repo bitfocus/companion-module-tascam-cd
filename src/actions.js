@@ -199,12 +199,12 @@ module.exports = function (self) {
 				},
 			],
 			callback: ({ options }) => {
-				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + options.mode)
-				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
+				self.addCmdtoQueue(SOM + cmd.syncRecLevelPreset + options.mode)
+				self.addCmdtoQueue(SOM + cmd.syncRecLevelPreset + 'FF')
 			},
 			//learn: () => {},
 			subscribe: () => {
-				self.addCmdtoQueue(SOM + cmd.autoTrackLevelPreset + 'FF')
+				self.addCmdtoQueue(SOM + cmd.syncRecLevelPreset + 'FF')
 			},
 		},
 		autoCueSelect: {
