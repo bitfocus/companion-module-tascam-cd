@@ -49,6 +49,7 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 	updateVariableValues() {
 		let varList = []
 		varList['trackNo'] = 'unknown'
+		varList['playState'] = 'unknown'
 		varList['trackTime'] = 'unknown'
 		varList['errorStatus'] = 'unknown'
 		varList['cautionStatus'] = 'unknown'
@@ -74,6 +75,13 @@ class TASCAM_SS_CDR250N extends InstanceBase {
 				currentTrackTime: 'unknown',
 			},
 		}
+	}
+
+	// Forget everything known about the unit (used when the connection is lost)
+	resetState() {
+		this.initVariables()
+		this.updateVariableValues()
+		this.checkFeedbacks()
 	}
 
 	updateActions() {

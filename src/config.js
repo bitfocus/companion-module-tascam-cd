@@ -5,7 +5,7 @@ module.exports = {
 		this.updateStatus(InstanceStatus.Connecting)
 		this.config = config
 		this.initTCP()
-		this.initVariables()
+		this.resetState()
 		this.updateActions()
 		this.updateFeedbacks()
 		this.updateVariableDefinitions()
