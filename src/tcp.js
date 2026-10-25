@@ -169,6 +169,7 @@ module.exports = {
 				this.updateStatus(InstanceStatus.Connecting, `Logging in`)
 				this.receiveBuffer = ''
 				this.recorder.loggedIn = false
+				this.cmdQueue = []
 				this.queryOnConnect()
 			})
 			this.socket.on('data', (chunk) => {
