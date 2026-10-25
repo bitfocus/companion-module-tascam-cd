@@ -223,7 +223,7 @@ module.exports = async function (self) {
 				return self.recorder.eom
 			},
 			subscribe: () => {
-				self.addCmdtoQueue(SOM + cmd.cmd.trackNumSense)
+				self.addCmdtoQueue(SOM + cmd.trackNumSense)
 			},
 		},
 	})

@@ -1,6 +1,9 @@
 const { resp, cmd, cmdOnLogin, SOM } = require('./consts.js')
 const { InstanceStatus } = require('@companion-module/base')
 
+const pad2 = (n) => String(n).padStart(2, '0')
+const formatTime = (h, m, s) => `${h}:${pad2(m)}:${pad2(s)}`
+
 module.exports = {
 	processCmd(chunk) {
 		let reply = chunk.toString()
@@ -22,7 +25,7 @@ module.exports = {
 				}
 				return true
 			case resp.loginFail:
-				this.recorder.loggedIn = false
+				this.resetState()
 				this.updateStatus(InstanceStatus.AuthenticationFailure, 'Incorrect Password')
 				this.log('error', 'Incorrect Password')
 				this.stopCmdQueue()
@@ -77,29 +80,31 @@ module.exports = {
 				break
 			case resp.repeatSelectReturn:
 				param[0] = reply.substr(3, 2)
-				this.recorder.repeat = param[0] === undefined ? this.recoder.repeat : param[0]
+				this.recorder.repeat = param[0]
 				this.checkFeedbacks('repeat')
 				break
 			case resp.syncRecSelectReturn:
 				break
 			case resp.incrPlaySelectReturn:
 				param[0] = reply.substr(3, 2)
-				this.recorder.incrPlay = param[0] === undefined ? this.recoder.incrPlay : param[0]
+				this.recorder.incrPlay = param[0]
 				this.checkFeedbacks('incrPlay')
 				break
 			case resp.remoteLocalModeReturn:
 				param[0] = reply.substr(3, 2)
-				this.recorder.remoteLocal = param[0] === undefined ? this.recoder.remoteLocal : param[0]
+				this.recorder.remoteLocal = param[0]
 				this.checkFeedbacks('remoteLocal')
 				break
 			case resp.playModeReturn:
 				param[0] = reply.substr(3, 2)
-				this.recorder.playMode = param[0] === undefined ? this.recoder.playMode : param[0]
+				this.recorder.playMode = param[0]
 				this.checkFeedbacks('playMode')
 				break
 			case resp.mechaStatusReturn:
 				param[0] = reply.substr(3, 2)
-				this.recorder.mechaStatus = param[0] === undefined ? this.recoder.mechaStatus : param[0]
+				this.recorder.mechaStatus = param[0]
+				varList['playState'] = this.mechaStatus_feedback.find((c) => c.id === param[0])?.label ?? 'Other'
+				this.setVariableValues(varList)
 				this.checkFeedbacks('mechaStatus')
 				break
 			case resp.specifiedDeviceStatusReturn:
@@ -128,7 +133,7 @@ module.exports = {
 						param[2] = Math.floor(param[1] / 60)
 						param[3] = param[1] % 60
 						param[4] = parseInt(`${reply[11]}${reply[12]}`) //seconds
-						this.recorder.track.currentTrackTime = `${param[2]}:${param[3]}:${param[4]}`
+						this.recorder.track.currentTrackTime = formatTime(param[2], param[3], param[4])
 				}
 				varList['trackTime'] = this.recorder.track.currentTrackTime
 				this.setVariableValues(varList)
@@ -143,7 +148,7 @@ module.exports = {
 				param[3] = param[1] % 60
 				param[4] = parseInt(`${reply[9]}${reply[10]}`) //seconds
 				param[5] = parseInt(`${reply[11]}${reply[12]}`) //frames
-				this.recorder.track.currentTrackTime = `${param[2]}:${param[3]}:${param[4]}`
+				this.recorder.track.currentTrackTime = formatTime(param[2], param[3], param[4])
 				varList['trackTime'] = this.recorder.track.currentTrackTime
 				this.setVariableValues(varList)
 				break
@@ -176,7 +181,7 @@ module.exports = {
 					this.addCmdtoQueue(SOM + cmd.mechaStatusSense)
 				} else if (param[0] == '03') {
 					//take number changed
-					this.addCmdtoQueue(SOM + cmd.currentTrackTimeSense)
+					this.addCmdtoQueue(SOM + cmd.currentTrackTimeSense + this.config.currentTrackTimeMode)
 				}
 				break
 			case resp.errorSenseReturn:
@@ -332,7 +337,7 @@ module.exports = {
 				switch (venderCmd) {
 					case resp.deviceSelectReturn:
 						param[0] = reply.substr(5, 2)
-						this.recorder.device = param[0] === undefined ? this.recoder.device : param[0]
+						this.recorder.device = param[0]
 						switch (param[0]) {
 							case '00':
 								varList['deviceStatus'] = 'SD1'
@@ -356,7 +361,7 @@ module.exports = {
 						break
 					case resp.playAreaSelectReturn:
 						param[0] = reply.substr(7, 2)
-						this.recorder.playArea = param[0] === undefined ? this.recoder.playArea : param[0]
+						this.recorder.playArea = param[0]
 						this.checkFeedbacks('playArea')
 						break
 					case resp.autoTrackSizeReturn:

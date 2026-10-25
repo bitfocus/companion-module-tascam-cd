@@ -150,6 +150,7 @@ INPUT SELECT sets the input source select of the controlled device.
 ## Variables
 
 - **Track Number**
+- **Play State** (Stop, Play, Record, etc.)
 - **Track Time**
 - **Error Status**
 - **Caution Status**
