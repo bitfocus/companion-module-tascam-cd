@@ -1,10 +1,19 @@
-const msgDelay = 20 // Make sure that commands are sent at a minimum of 20-millisecond intervals.
-const keepAliveInterval = 1000
-const timeOutInterval = 15000
-const SOM = '0'
-const EOM = '\r\n'
-const EndSession = 'exit'
-const cmd = {
+/** Start of every command and reply */
+export const SOM = '0'
+/** End of every line, in both directions */
+export const EOM = '\r\n'
+/** Sent before closing, to end the telnet session */
+export const END_SESSION = 'exit'
+
+/** Lines the unit sends while logging in, which are not commands */
+export const LoginPrompt = {
+	Password: 'Enter Password',
+	Success: 'Login Successful',
+	Failure: 'Password is different',
+} as const
+
+/** Command codes, sent after {@link SOM}. Parameters follow the code */
+export const cmd = {
 	infoReq: '0F',
 	stop: '10',
 	play: '12',
@@ -75,12 +84,13 @@ const cmd = {
 	folderNameSense: '7F4A59',
 	folderCountSense: '7F4A5D',
 	fileCountSense: '7F4A5E',
-}
+} as const
 
-const resp = {
-	password: 'Enter Password',
-	loginSuccess: 'Login Successful',
-	loginFail: 'Password is different',
+/** The parameter that asks a select command for the current setting rather than changing it */
+export const SENSE = 'FF'
+
+/** Reply codes: the two characters after {@link SOM} */
+export const resp = {
 	keepAlive: 'FA',
 	infoReturn: '8F',
 	flashLoadAck: '97',
@@ -116,11 +126,15 @@ const resp = {
 	cautionSenseRequest: 'F1',
 	illegalStatus: 'F2',
 	powerOnStatus: 'F4',
-	changeStatus: 'F6',
 	powerControlReturn: 'F5',
+	changeStatus: 'F6',
 	errorSenseReturn: 'F8',
 	cautionSenseReturn: 'F9',
-	venderCommandReturn: 'FF',
+	vendorCommandReturn: 'FF',
+} as const
+
+/** Vendor command replies: {@link resp.vendorCommandReturn} and the four characters after it */
+export const vendorResp = {
 	deviceSelectReturn: 'FF01',
 	timeSkipReturn: 'FF0702',
 	playAreaSelectReturn: 'FF07CF',
@@ -140,50 +154,22 @@ const resp = {
 	fileNameReturn: 'FF4ADA',
 	folderCountReturn: 'FF4ADD',
 	fileCountReturn: 'FF4ADE',
-}
+} as const
 
-const respParam = {
-	mechaStatusReturn: {
-		noMedia: '00',
-		stop: '10',
-		play: '11',
-		readyOn: '12',
-		cue: '28',
-		review: '29',
-		record: '81',
-		recordReady: '82',
-		infomationWriting: '83',
-		other: 'FF',
-	},
-}
-
-const cmdOnLogin = [
+/** Queried once logged in, so feedbacks and variables have something to show */
+export const cmdOnLogin: readonly string[] = [
 	cmd.errorSense,
 	cmd.cautionSense,
 	cmd.mechaStatusSense,
 	cmd.trackNumSense,
-	cmd.deviceSelect + 'FF',
-	cmd.repeatModeSelect + 'FF',
-	cmd.syncRecSelect + 'FF',
-	cmd.incrPlaySelect + 'FF',
-	cmd.remoteLocalModeSelect + 'FF',
+	cmd.deviceSelect + SENSE,
+	cmd.repeatModeSelect + SENSE,
+	cmd.syncRecSelect + SENSE,
+	cmd.incrPlaySelect + SENSE,
+	cmd.remoteLocalModeSelect + SENSE,
 	cmd.playModeSense,
-	cmd.playAreaSelect + 'FF',
+	cmd.playAreaSelect + SENSE,
 ]
 
-//export const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense, cmd.currentTrackInfoSense]
-const cmdOnKeepAlive = [cmd.mechaStatusSense, cmd.trackNumSense]
-
-module.exports = {
-	msgDelay,
-	keepAliveInterval,
-	timeOutInterval,
-	SOM,
-	EOM,
-	EndSession,
-	cmd,
-	resp,
-	respParam,
-	cmdOnLogin,
-	cmdOnKeepAlive,
-}
+/** Polled every keepalive interval, with the current track time sense. They keep the session open as well */
+export const cmdOnKeepAlive: readonly string[] = [cmd.mechaStatusSense, cmd.trackNumSense]
