@@ -7,7 +7,9 @@ This module will control the Tascam SS-CDR250N and SS-R250N Media Player and Rec
 
 ## Configuration
 
-Enter the IP address, port of the media player. If a password is required, enter the password.
+Enter the IP address, port of the media player. If a password is required, enter the password; leave it empty if the unit has none.
+
+**Track Time** sets which time the Track Time variable shows: the elapsed or remaining time of the current track, or of the whole media. The Current Track Time Sense action changes it too.
 
 ## Actions
 
@@ -61,7 +63,7 @@ AUTO CUE LEVEL PRESET sets the auto cue level of the controlled device.
 
 - **Direct Track Search Preset**
 
-DIRECT TRACK SEARCH PRESET performs a search for a track on the controlled device by specifying the track number.
+DIRECT TRACK SEARCH PRESET performs a search for a track on the controlled device by specifying the track number (1 to 9999). The track number can be an expression.
 
 - **Auto Track Select**
 
@@ -168,58 +170,3 @@ INPUT SELECT sets the input source select of the controlled device.
 - **Play Mode**
 - **Remote/Local Control**
 - **Repeat**
-- **Resume Play**
-
-## Version History
-
-### Version 2.1.6
-
-- Fix some queries on connection
-
-### Version 2.1.5
-
-- Update Node 22
-
-### Version 2.1.4
-
-- Update dependencies
-- Minor fixes
-
-### Version 2.1.3
-
-- Fix password regex
-
-### Version 2.1.2
-
-- Better status updates
-- Better preset formatting
-- Update companion-module-base to 1.8.0
-
-### Version 2.1.1
-
-- Add record preset
-
-### Version 2.1.0
-
-- Add device, status and transport presets
-
-### Version 2.0.3
-
-- End of Media feedback
-- Track Number & Track Time variable fixes
-- Track Time mode saved to device config
-- Update companion-module-tools to 1.5.0
-
-### Version 2.0.2
-
-- Minor fixes
-
-### Version 2.0.1
-
-- Add action & feedback subscription callbacks
-- Update package.json
-- Update companion-module-base to 1.7.0
-
-### Version 2.0.0
-
-- Brand new module vs 1.0.0
